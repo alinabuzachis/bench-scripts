@@ -1,4 +1,4 @@
-# Benchmark Scripts for community.okd collection
+# Benchmark Scripts for community.okd Collection
 
 This repository contains some automation scripts to assist with performance testing for some aspects of the [community.okd collection](https://github.com/ansible-collections/community.okd).
 ## Running the tests
