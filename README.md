@@ -6,7 +6,7 @@ This repository contains some automation scripts to assist with performance test
   1. Prepare the environment `ansible-playbook prepare_env.yml`
   2. Start the experiment `~/env/bin/ansible-playbook main.yml`
 
-**Note:** For testing the collections using the Turbo mode you have to use the following command instead `ENABLE_TURBO_MODE=1 ~/env/bin/ansible-playbook main.yml`  
+**Note:** For testing the collections using Turbo mode you have to use the following command instead `ENABLE_TURBO_MODE=1 ~/env/bin/ansible-playbook main.yml`  
 
 Then the `main.yml` playbook deploys the amount of Namespaces and ConfigMaps defined by `obj_count` in `config.yml` into the cluster. At the end of the playbook, Ansible's ARA callback plugins report back the timings of all the tasks.
 
