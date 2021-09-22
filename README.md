@@ -1,6 +1,7 @@
 # Benchmark Scripts for community.okd Collection
 
-This repository contains some automation scripts to assist with performance testing for some aspects of the [community.okd collection](https://github.com/ansible-collections/community.okd).
+This repository contains some automation scripts to assist with performance testing for some aspects of the [community.okd collection](https://github.com/ansible-collections/community.okd), e.g., testing the benefits of Turbo mode on some k8s objects creation.
+
 ## Running the tests
   1. Prepare the environment `ansible-playbook prepare_env.yml`
   2. Start the experiment `~/env/bin/ansible-playbook main.yml`
