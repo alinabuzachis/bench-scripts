@@ -1,0 +1,13 @@
+---
+# Delete K8S namespaces using a label selector 
+
+- name: Delete Namespace(s)
+  community.okd.k8s:
+    state: absent
+    api_version: v1
+    kind: Namespace
+    name: "{{ item.metadata.name }}"
+  vars:
+    namespaceList: "{{ lookup('kubernetes.core.k8s', kind='Namespace', label_selector='environment=bench') }}"
+  with_items: "{{ namespaceList }}"
+

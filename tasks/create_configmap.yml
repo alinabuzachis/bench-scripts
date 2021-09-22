@@ -1,0 +1,28 @@
+---
+# Create a number of K8S configmaps according to ```obj_count```
+
+- name: Add a Namespace for ConfigMap(s)
+  community.okd.k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "namespace-bench"
+        labels:
+          environment: bench-cfg
+
+- set_fact:
+    cfm_namespace: "{{ lookup('kubernetes.core.k8s', kind='Namespace', label_selector='environment=bench-cfg') | json_query('metadata.name') }}"
+
+- name: Create {{ obj_count }} ConfigMap(s)
+  community.okd.k8s:
+    state: present
+    namespace: "{{ cfm_namespace }}"
+    definition:
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: "configmap-{{ item }}"
+      labels:
+        environment: bench
+  with_sequence: count={{ obj_count }}

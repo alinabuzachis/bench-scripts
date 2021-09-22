@@ -1,0 +1,20 @@
+---
+# Delete K8S configmaps using a label selector 
+
+- name: Delete ConfigMap(s)
+  community.okd.k8s:
+    state: absent
+    api_version: v1
+    kind: ConfigMap
+    name: "{{ item.metadata.name }}"
+  vars:
+    configmapList: "{{ lookup('kubernetes.core.k8s', kind='ConfigMap', label_selector='environment=bench') }}"
+  with_items: "{{ configmapList }}"
+    
+- name: Delete Namespace
+  community.okd.k8s:
+    state: absent
+    api_version: v1
+    kind: Namespace
+    name: "{{ lookup('kubernetes.core.k8s', kind='Namespace', label_selector='environment=bench-cfg') | json_query('metadata.name') }}"
+

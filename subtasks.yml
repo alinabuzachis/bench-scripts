@@ -1,0 +1,11 @@
+---
+
+- block:
+  - import_tasks: tasks/create_namespace.yml
+  - import_tasks: tasks/delete_namespace.yml 
+
+  - pause:
+      seconds: 10
+
+  - import_tasks: tasks/create_configmap.yml
+  - import_tasks: tasks/delete_configmap.yml

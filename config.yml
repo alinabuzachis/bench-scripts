@@ -1,0 +1,10 @@
+---
+# number of runs
+count: 1
+
+# number of objects
+obj_count: 10
+
+results_path: ~/bench-scripts/results
+
+ansible_user: ubuntu

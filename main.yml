@@ -1,0 +1,16 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+ 
+  vars_files:
+    - config.yml
+
+  tasks:
+    - name: Run
+      include_tasks: subtasks.yml
+      with_sequence: count={{ count }}
+      loop_control:
+        loop_var: _run_count 
+  
+    - name: Dump metrics
+      include_tasks: tasks/dump_metrics.yml

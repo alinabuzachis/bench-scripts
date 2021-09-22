@@ -1,0 +1,31 @@
+---
+
+- name: Ensure Pip is installed.
+  package:
+    name: python3-pip
+    state: present
+
+- name: Install virtualenv module
+  pip:
+    name: virtualenv
+
+- name: Install Python 3.8
+  apt:
+    name:
+      - python3.8
+      - python3.8-dev
+      - python3.8-venv
+      - python3-setuptools
+
+- name: Create Python3-virtual environment folder
+  file:
+    name: "~/env"
+    state: directory
+  
+- name: Initiate virtualenv
+  pip:
+    virtualenv: "~/env"
+    virtualenv_python: python3.8
+    virtualenv_command: virtualenv
+    virtualenv_site_packages: no
+    requirements: ~/bench-scripts/requirements.txt

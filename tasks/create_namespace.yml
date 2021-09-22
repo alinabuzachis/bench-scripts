@@ -1,0 +1,13 @@
+---
+# Create a number of K8S namespace according to ```obj_count```
+
+- name: Create {{ obj_count }} Namespace(s)
+  community.okd.k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "namespace-{{ item }}"
+        labels:
+          environment: bench
+  with_sequence: count={{ obj_count }}

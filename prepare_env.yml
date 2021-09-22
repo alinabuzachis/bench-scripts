@@ -1,0 +1,10 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - name: Prepare enviromnemt
+      import_tasks: tasks/env_setup.yml
+
+    - name: Add ARA callback plugins to ansible.cfg
+      shell: ~/env/bin/python3 -m ara.setup.ansible | tee -a ~/bench-scripts/ansible.cfg

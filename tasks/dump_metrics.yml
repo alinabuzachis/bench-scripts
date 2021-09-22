@@ -1,0 +1,39 @@
+---   
+
+- name: Get the currently running playbook
+  ara_playbook:
+  register: _query
+
+- name: Retrieve playbook id
+  set_fact:
+     _playbook_id: "{{ _query.playbook.id | string }}"
+
+- name: Get playbook info
+  set_fact:
+    _info: "{{ lookup('ara_api', '/api/v1/results?playbook={{ _playbook_id|int }}') }}"
+
+- name: Create a folder for results
+  file:
+    path: "{{ results_path }}-{{ obj_count }}" 
+    state: directory
+  register: _folder_path
+
+- set_fact:
+    results_folder: "{{ _folder_path.path }}"
+
+- name: Save headers to a new CSV file
+  lineinfile:
+    path: "{{ results_folder }}/{{ _playbook_id }}-file.csv"
+    line: hostname,playbook_id,task_name,duration
+    create: yes
+
+- name: Combine lines
+  vars:
+    task_id: "{{ item.task | string }}"
+    task: "{{ lookup('ara_api', '/api/v1/tasks/' + task_id ) }}"
+    host_id: "{{ item.host | string }}"
+    host: "{{ lookup('ara_api', '/api/v1/hosts/' + host_id) }}"
+  lineinfile:
+    path: "{{ results_folder }}/{{ _playbook_id }}-file.csv"
+    line: "{{ host.name }},{{ task.playbook.id }},{{ task.name }},{{ task.duration }}"
+  loop: "{{ _info.results }}"

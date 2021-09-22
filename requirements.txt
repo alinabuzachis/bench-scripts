@@ -1,3 +1,4 @@
 ansible==2.10.6
 ara[server]
 kubernetes
+jmespath
