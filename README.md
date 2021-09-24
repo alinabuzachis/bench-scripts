@@ -16,3 +16,7 @@ Then the `main.yml` playbook deploys the amount of Namespaces and ConfigMaps def
 
 ## Plot the results
 Results can be plotted with `python plot/plot.py`.
+
+## Author
+
+This repository was created in 2021 by Alina Buzachis.
